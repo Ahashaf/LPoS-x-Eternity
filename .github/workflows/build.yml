@@ -15,7 +15,7 @@ jobs:
     strategy:
       matrix:
         device: [beyond2lte]
-        su: [non-ksu, ksu]
+        su: [ksu]
 
     steps:
       - name: Checkout source
