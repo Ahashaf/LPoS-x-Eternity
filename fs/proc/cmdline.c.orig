@@ -12,20 +12,11 @@ enum {
 
 static char new_command_line[COMMAND_LINE_SIZE];
 
-#ifdef CONFIG_KSU_SUSFS_SPOOF_PROC_CMDLINE
-extern int susfs_spoof_proc_cmdline(struct seq_file *m);
-#endif
-
 static int cmdline_proc_show(struct seq_file *m, void *v)
 {
-#ifdef CONFIG_KSU_SUSFS_SPOOF_PROC_CMDLINE
-	if (!susfs_spoof_proc_cmdline(m)) {
-		seq_putc(m, '\n');
-		return 0;
-	}
-#endif
-seq_printf(m, "%s\n", saved_command_line);
- 	return 0;
+	seq_puts(m, new_command_line);
+	seq_putc(m, '\n');
+	return 0;
 }
 
 static int cmdline_proc_open(struct inode *inode, struct file *file)
